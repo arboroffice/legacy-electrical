@@ -40,14 +40,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  // In demo mode, derive role from URL path
   useEffect(() => {
-    // Demo mode: auto-login as admin
-    if (DEMO_MODE) {
-      setUser({ id: 'demo', email: 'admin@legacyelectrical.com' } as any)
-      setRole('admin')
-      setLoading(false)
-      return
+    if (!DEMO_MODE) return
+    const path = window.location.pathname
+    let detectedRole: UserRole = 'admin'
+    let email = 'admin@legacyelectrical.com'
+    if (path.startsWith('/crew')) {
+      detectedRole = 'crew'
+      email = 'mike@legacyelectrical.com'
+    } else if (path.startsWith('/pm')) {
+      detectedRole = 'pm'
+      email = 'pm@legacyelectrical.com'
     }
+    setUser({ id: 'demo', email } as any)
+    setRole(detectedRole)
+    setLoading(false)
+  })
+
+  useEffect(() => {
+    // Demo mode: skip Supabase auth
+    if (DEMO_MODE) return
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
