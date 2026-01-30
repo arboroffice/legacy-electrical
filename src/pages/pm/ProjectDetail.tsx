@@ -37,7 +37,7 @@ const mockPhotos = [
 ]
 
 export default function PMProjectDetail() {
-  const { id } = useParams()
+  const { id: _id } = useParams()
   const project = mockProject
 
   const [checkedTasks, setCheckedTasks] = useState<Set<string>>(new Set(['Print plans', 'Schedule temp pole install', 'Sub installs temp pole', 'Schedule slab install', 'Order slab materials to job site or sub location', 'Sub installs materials']))

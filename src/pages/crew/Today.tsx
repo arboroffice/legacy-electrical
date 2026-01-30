@@ -38,7 +38,11 @@ const STATUS_LABELS = {
 }
 
 export default function CrewToday() {
-  const [assignments, setAssignments] = useState(mockAssignments)
+  const [assignments, setAssignments] = useState<Array<{
+    id: string; project: string; address: string; phase: string; phaseNum: number;
+    tasks: { id: string; title: string; done: boolean }[];
+    status: 'not_started' | 'in_progress' | 'done';
+  }>>(mockAssignments)
   const [clockedIn, setClockedIn] = useState(false)
 
   const toggleTask = (assignmentId: string, taskId: string) => {
@@ -47,7 +51,7 @@ export default function CrewToday() {
       const tasks = a.tasks.map(t => t.id === taskId ? { ...t, done: !t.done } : t)
       const allDone = tasks.every(t => t.done)
       const anyDone = tasks.some(t => t.done)
-      return { ...a, tasks, status: allDone ? 'done' : anyDone ? 'in_progress' : 'not_started' }
+      return { ...a, tasks, status: (allDone ? 'done' : anyDone ? 'in_progress' : 'not_started') as 'not_started' | 'in_progress' | 'done' }
     }))
   }
 

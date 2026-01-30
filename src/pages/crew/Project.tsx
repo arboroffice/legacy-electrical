@@ -27,7 +27,7 @@ const mockPhotos = [
 ]
 
 export default function CrewProject() {
-  const { id } = useParams()
+  const { id: _id } = useParams()
   const project = mockProject
   const [tasks, setTasks] = useState(mockTasks)
   const [note, setNote] = useState('')
