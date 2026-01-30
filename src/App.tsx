@@ -16,10 +16,15 @@ const AdminCrew = React.lazy(() => import('./pages/admin/Crew'))
 const PMDashboard = React.lazy(() => import('./pages/pm/Dashboard'))
 const PMProjectDetail = React.lazy(() => import('./pages/pm/ProjectDetail'))
 const PMSchedule = React.lazy(() => import('./pages/pm/Schedule'))
+const PMInspections = React.lazy(() => import('./pages/pm/Inspections'))
+const PMInvoices = React.lazy(() => import('./pages/pm/Invoices'))
+const PMMaterials = React.lazy(() => import('./pages/pm/Materials'))
 
 const CrewToday = React.lazy(() => import('./pages/crew/Today'))
 const CrewProject = React.lazy(() => import('./pages/crew/Project'))
 const CrewTime = React.lazy(() => import('./pages/crew/Time'))
+const CrewJobs = React.lazy(() => import('./pages/crew/Jobs'))
+const CrewProfile = React.lazy(() => import('./pages/crew/Profile'))
 
 function LoadingScreen() {
   return (
@@ -49,11 +54,16 @@ export default function App() {
             <Route path="/pm" element={<PMDashboard />} />
             <Route path="/pm/projects/:id" element={<PMProjectDetail />} />
             <Route path="/pm/schedule" element={<PMSchedule />} />
+            <Route path="/pm/inspections" element={<PMInspections />} />
+            <Route path="/pm/invoices" element={<PMInvoices />} />
+            <Route path="/pm/materials" element={<PMMaterials />} />
 
             {/* Crew */}
             <Route path="/crew" element={<CrewToday />} />
             <Route path="/crew/project/:id" element={<CrewProject />} />
             <Route path="/crew/time" element={<CrewTime />} />
+            <Route path="/crew/jobs" element={<CrewJobs />} />
+            <Route path="/crew/profile" element={<CrewProfile />} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

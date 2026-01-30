@@ -2,7 +2,9 @@ import { NavLink } from 'react-router-dom'
 
 const links = [
   { to: '/crew', label: 'Today', icon: '📋' },
+  { to: '/crew/jobs', label: 'Jobs', icon: '🏗️' },
   { to: '/crew/time', label: 'Time', icon: '⏱️' },
+  { to: '/crew/profile', label: 'Me', icon: '👤' },
 ]
 
 export default function BottomNav() {

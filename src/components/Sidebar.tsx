@@ -7,16 +7,24 @@ const adminLinks = [
   { to: '/admin/projects', label: 'Projects', icon: '🏗️' },
   { to: '/admin/financials', label: 'Financials', icon: '💰' },
   { to: '/admin/crew', label: 'Crew', icon: '👷' },
+  { to: '/admin/builders', label: 'Builders', icon: '🏢' },
+  { to: '/admin/reports', label: 'Reports', icon: '📈' },
+  { to: '/admin/settings', label: 'Settings', icon: '⚙️' },
 ]
 
 const pmLinks = [
   { to: '/pm', label: 'Dashboard', icon: '📊' },
   { to: '/pm/schedule', label: 'Schedule', icon: '📅' },
+  { to: '/pm/inspections', label: 'Inspections', icon: '🔍' },
+  { to: '/pm/invoices', label: 'Invoices', icon: '💵' },
+  { to: '/pm/materials', label: 'Materials', icon: '📦' },
 ]
 
 const crewLinks = [
   { to: '/crew', label: 'Today', icon: '📋' },
+  { to: '/crew/jobs', label: 'My Jobs', icon: '🏗️' },
   { to: '/crew/time', label: 'Time Clock', icon: '⏱️' },
+  { to: '/crew/profile', label: 'My Profile', icon: '👤' },
 ]
 
 export default function Sidebar() {

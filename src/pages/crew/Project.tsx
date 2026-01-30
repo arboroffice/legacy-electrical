@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Layout from '../../components/Layout'
 import BottomNav from '../../components/BottomNav'
@@ -26,14 +26,42 @@ const mockPhotos = [
   { id: '2', label: 'Panel rough-in', date: 'Jan 12' },
 ]
 
+const safetyItems = [
+  'PPE Check (hard hat, safety glasses, gloves)',
+  'LOTO verification',
+  'Fire extinguisher located',
+]
+
 export default function CrewProject() {
   const { id: _id } = useParams()
   const project = mockProject
   const [tasks, setTasks] = useState(mockTasks)
   const [note, setNote] = useState('')
+  const [safetyChecks, setSafetyChecks] = useState<Record<number, boolean>>({})
+  const [timerSeconds, setTimerSeconds] = useState(0)
+  const [timerRunning] = useState(true)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  useEffect(() => {
+    if (timerRunning) {
+      timerRef.current = setInterval(() => setTimerSeconds(s => s + 1), 1000)
+    }
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
+  }, [timerRunning])
+
+  const formatTime = (s: number) => {
+    const h = Math.floor(s / 3600)
+    const m = Math.floor((s % 3600) / 60)
+    const sec = s % 60
+    return `${h}h ${m.toString().padStart(2, '0')}m ${sec.toString().padStart(2, '0')}s`
+  }
 
   const toggleTask = (taskId: string) => {
     setTasks(prev => prev.map(t => t.id === taskId ? { ...t, done: !t.done } : t))
+  }
+
+  const toggleSafety = (idx: number) => {
+    setSafetyChecks(prev => ({ ...prev, [idx]: !prev[idx] }))
   }
 
   const phase = PROJECT_PHASES.find(p => p.number === project.current_phase)!
@@ -48,6 +76,25 @@ export default function CrewProject() {
           <p className="text-zinc-500 text-sm mt-1">Builder: {project.builder_name}</p>
         </div>
 
+        {/* Job Timer */}
+        <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 flex items-center justify-between">
+          <div>
+            <p className="text-blue-400 text-xs font-medium">⏱️ Time on job today</p>
+            <p className="text-white text-xl font-bold font-mono">{formatTime(timerSeconds)}</p>
+          </div>
+          <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+        </div>
+
+        {/* Directions */}
+        <a
+          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.address)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-blue-600 text-white text-center py-4 rounded-xl text-base font-semibold hover:bg-blue-500 transition min-h-[56px]"
+        >
+          🗺️ Get Directions
+        </a>
+
         {/* Phase Info */}
         <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
@@ -60,6 +107,53 @@ export default function CrewProject() {
                 p.number <= project.current_phase ? 'bg-blue-500' : 'bg-zinc-700'
               }`} />
             ))}
+          </div>
+        </div>
+
+        {/* Safety Checklist */}
+        <div className="bg-zinc-900 border border-yellow-500/30 rounded-xl p-5">
+          <h2 className="text-yellow-400 font-semibold mb-3">⚠️ Safety Checklist</h2>
+          <div className="space-y-3">
+            {safetyItems.map((item, i) => (
+              <label key={i} className="flex items-center gap-3 cursor-pointer min-h-[48px]">
+                <input
+                  type="checkbox"
+                  checked={safetyChecks[i] || false}
+                  onChange={() => toggleSafety(i)}
+                  className="w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-green-500 focus:ring-green-500"
+                />
+                <span className={`text-sm ${safetyChecks[i] ? 'text-green-400' : 'text-slate-200'}`}>{item}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact Info */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+          <h2 className="text-white font-semibold mb-3">📞 Contacts</h2>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-200 text-sm">PM: Sarah Johnson</p>
+              </div>
+              <a href="tel:4055550142" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium min-h-[48px] flex items-center">
+                📞 Call
+              </a>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-slate-200 text-sm">Builder: Homes by Taber</p>
+              </div>
+              <a href="tel:4055550200" className="bg-zinc-800 text-zinc-300 px-4 py-2 rounded-lg text-sm font-medium min-h-[48px] flex items-center">
+                📞 Call
+              </a>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-slate-200 text-sm">Emergency</p>
+              <a href="tel:911" className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium min-h-[48px] flex items-center">
+                🚨 911
+              </a>
+            </div>
           </div>
         </div>
 

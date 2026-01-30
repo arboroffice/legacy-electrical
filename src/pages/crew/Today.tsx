@@ -37,13 +37,17 @@ const STATUS_LABELS = {
   done: 'Done',
 }
 
+type AssignmentStatus = 'not_started' | 'in_progress' | 'done'
+
 export default function CrewToday() {
   const [assignments, setAssignments] = useState<Array<{
     id: string; project: string; address: string; phase: string; phaseNum: number;
     tasks: { id: string; title: string; done: boolean }[];
-    status: 'not_started' | 'in_progress' | 'done';
+    status: AssignmentStatus;
   }>>(mockAssignments)
   const [clockedIn, setClockedIn] = useState(false)
+  const [safetyOpen, setSafetyOpen] = useState(false)
+  const [notes, setNotes] = useState<Record<string, string>>({})
 
   const toggleTask = (assignmentId: string, taskId: string) => {
     setAssignments(prev => prev.map(a => {
@@ -51,7 +55,7 @@ export default function CrewToday() {
       const tasks = a.tasks.map(t => t.id === taskId ? { ...t, done: !t.done } : t)
       const allDone = tasks.every(t => t.done)
       const anyDone = tasks.some(t => t.done)
-      return { ...a, tasks, status: (allDone ? 'done' : anyDone ? 'in_progress' : 'not_started') as 'not_started' | 'in_progress' | 'done' }
+      return { ...a, tasks, status: (allDone ? 'done' : anyDone ? 'in_progress' : 'not_started') as AssignmentStatus }
     }))
   }
 
@@ -66,10 +70,30 @@ export default function CrewToday() {
           <p className="text-zinc-400 mt-1">
             {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </p>
+          {/* Weather Widget */}
+          <p className="text-zinc-300 text-sm mt-2">🌤️ 72°F, Clear — Good working conditions</p>
+        </div>
+
+        {/* Safety Brief */}
+        <div className="bg-zinc-900 border border-yellow-500/30 rounded-xl overflow-hidden">
+          <button
+            onClick={() => setSafetyOpen(!safetyOpen)}
+            className="w-full flex items-center justify-between p-4 min-h-[48px]"
+          >
+            <span className="text-yellow-400 font-medium text-sm">⚠️ Daily Safety Brief</span>
+            <span className="text-zinc-400">{safetyOpen ? '▲' : '▼'}</span>
+          </button>
+          {safetyOpen && (
+            <div className="px-4 pb-4">
+              <p className="text-zinc-300 text-sm leading-relaxed">
+                Working near live circuits — always verify zero-energy state before touching conductors. LOTO required for all panel work.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <button className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-zinc-700 transition min-h-[80px]">
             <span className="text-2xl">📸</span>
             <span className="text-xs text-zinc-300 font-medium">Upload Photo</span>
@@ -77,6 +101,10 @@ export default function CrewToday() {
           <button className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-zinc-700 transition min-h-[80px]">
             <span className="text-2xl">📝</span>
             <span className="text-xs text-zinc-300 font-medium">Material List</span>
+          </button>
+          <button className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-zinc-700 transition min-h-[80px]">
+            <span className="text-2xl">🆘</span>
+            <span className="text-xs text-zinc-300 font-medium">Request Help</span>
           </button>
           <button
             onClick={() => setClockedIn(!clockedIn)}
@@ -96,55 +124,83 @@ export default function CrewToday() {
         {/* Today's Assignments */}
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white">Today's Assignments</h2>
-          {assignments.map((assignment) => (
-            <div key={assignment.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <Link to={`/crew/project/${assignment.id}`} className="text-white font-medium text-base hover:text-blue-400 transition">
-                    {assignment.project}
-                  </Link>
-                  <p className="text-zinc-400 text-sm mt-0.5">{assignment.address}</p>
+          {assignments.map((assignment) => {
+            const doneCount = assignment.tasks.filter(t => t.done).length
+            const totalCount = assignment.tasks.length
+            const pct = totalCount > 0 ? (doneCount / totalCount) * 100 : 0
+
+            return (
+              <div key={assignment.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <Link to={`/crew/project/${assignment.id}`} className="text-white font-medium text-base hover:text-blue-400 transition">
+                      {assignment.project}
+                    </Link>
+                    <p className="text-zinc-400 text-sm mt-0.5">{assignment.address}</p>
+                  </div>
+                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_STYLES[assignment.status]}`}>
+                    {STATUS_LABELS[assignment.status]}
+                  </span>
                 </div>
-                <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_STYLES[assignment.status]}`}>
-                  {STATUS_LABELS[assignment.status]}
-                </span>
-              </div>
 
-              <div className="text-xs text-zinc-500 mb-3">Phase {assignment.phaseNum}: {assignment.phase}</div>
+                <div className="text-xs text-zinc-500 mb-2">Phase {assignment.phaseNum}: {assignment.phase}</div>
 
-              {/* Tasks */}
-              <div className="space-y-3 mb-4">
-                {assignment.tasks.map((task) => (
-                  <label key={task.id} className="flex items-center gap-3 cursor-pointer min-h-[48px]">
-                    <input
-                      type="checkbox"
-                      checked={task.done}
-                      onChange={() => toggleTask(assignment.id, task.id)}
-                      className="w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-blue-500 focus:ring-blue-500"
-                    />
-                    <span className={`text-sm ${task.done ? 'text-zinc-500 line-through' : 'text-slate-200'}`}>
-                      {task.title}
-                    </span>
-                  </label>
-                ))}
-              </div>
+                {/* Progress Indicator */}
+                <div className="mb-3">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs text-zinc-400">{doneCount}/{totalCount} tasks complete</span>
+                    <span className="text-xs text-zinc-500">{Math.round(pct)}%</span>
+                  </div>
+                  <div className="h-1.5 bg-zinc-700 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                  </div>
+                </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-2">
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(assignment.address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 bg-blue-600 text-white text-center py-3 rounded-lg text-sm font-medium hover:bg-blue-500 transition min-h-[48px] flex items-center justify-center"
-                >
-                  🗺️ Navigate
-                </a>
-                <button className="flex-1 bg-zinc-800 text-white py-3 rounded-lg text-sm font-medium hover:bg-zinc-700 transition min-h-[48px]">
-                  📸 Upload Photo
-                </button>
+                {/* Tasks */}
+                <div className="space-y-3 mb-4">
+                  {assignment.tasks.map((task) => (
+                    <label key={task.id} className="flex items-center gap-3 cursor-pointer min-h-[48px]">
+                      <input
+                        type="checkbox"
+                        checked={task.done}
+                        onChange={() => toggleTask(assignment.id, task.id)}
+                        className="w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-blue-500 focus:ring-blue-500"
+                      />
+                      <span className={`text-sm ${task.done ? 'text-zinc-500 line-through' : 'text-slate-200'}`}>
+                        {task.title}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+
+                {/* Notes */}
+                <div className="mb-4">
+                  <textarea
+                    value={notes[assignment.id] || ''}
+                    onChange={(e) => setNotes(prev => ({ ...prev, [assignment.id]: e.target.value }))}
+                    placeholder="Add job notes..."
+                    rows={2}
+                    className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm placeholder-zinc-500 resize-none"
+                  />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(assignment.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-blue-600 text-white text-center py-3 rounded-lg text-sm font-medium hover:bg-blue-500 transition min-h-[48px] flex items-center justify-center"
+                  >
+                    🗺️ Navigate
+                  </a>
+                  <button className="flex-1 bg-zinc-800 text-white py-3 rounded-lg text-sm font-medium hover:bg-zinc-700 transition min-h-[48px]">
+                    📸 Upload Photo
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 
