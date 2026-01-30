@@ -22,6 +22,7 @@ const PMSchedule = React.lazy(() => import('./pages/pm/Schedule'))
 const PMInspections = React.lazy(() => import('./pages/pm/Inspections'))
 const PMInvoices = React.lazy(() => import('./pages/pm/Invoices'))
 const PMMaterials = React.lazy(() => import('./pages/pm/Materials'))
+const PMTeam = React.lazy(() => import('./pages/pm/Team'))
 
 const CrewToday = React.lazy(() => import('./pages/crew/Today'))
 const CrewProject = React.lazy(() => import('./pages/crew/Project'))
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/pm/inspections" element={<PMInspections />} />
             <Route path="/pm/invoices" element={<PMInvoices />} />
             <Route path="/pm/materials" element={<PMMaterials />} />
+            <Route path="/pm/team" element={<PMTeam />} />
 
             {/* Crew */}
             <Route path="/crew" element={<CrewToday />} />

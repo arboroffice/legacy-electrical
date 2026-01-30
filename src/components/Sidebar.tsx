@@ -18,6 +18,7 @@ const pmLinks = [
   { to: '/pm/inspections', label: 'Inspections', icon: '🔍' },
   { to: '/pm/invoices', label: 'Invoices', icon: '💵' },
   { to: '/pm/materials', label: 'Materials', icon: '📦' },
+  { to: '/pm/team', label: 'Team', icon: '👷' },
 ]
 
 const crewLinks = [
