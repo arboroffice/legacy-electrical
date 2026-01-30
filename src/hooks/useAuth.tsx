@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import type { User as SupabaseUser, Session } from '@supabase/supabase-js'
 import type { UserRole } from '../types'
@@ -23,6 +24,7 @@ const AuthContext = createContext<AuthContextType>({
 const DEMO_MODE = !import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const location = useLocation()
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [role, setRole] = useState<UserRole | ''>('')
   const [loading, setLoading] = useState(true)
@@ -43,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // In demo mode, derive role from URL path
   useEffect(() => {
     if (!DEMO_MODE) return
-    const path = window.location.pathname
+    const path = location.pathname
     let detectedRole: UserRole = 'admin'
     let email = 'admin@legacyelectrical.com'
     if (path.startsWith('/crew')) {
@@ -56,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser({ id: 'demo', email } as any)
     setRole(detectedRole)
     setLoading(false)
-  })
+  }, [location.pathname])
 
   useEffect(() => {
     // Demo mode: skip Supabase auth
