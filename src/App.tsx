@@ -12,6 +12,9 @@ const AdminProjects = React.lazy(() => import('./pages/admin/Projects'))
 const AdminProjectDetail = React.lazy(() => import('./pages/admin/ProjectDetail'))
 const AdminFinancials = React.lazy(() => import('./pages/admin/Financials'))
 const AdminCrew = React.lazy(() => import('./pages/admin/Crew'))
+const AdminBuilders = React.lazy(() => import('./pages/admin/Builders'))
+const AdminReports = React.lazy(() => import('./pages/admin/Reports'))
+const AdminSettings = React.lazy(() => import('./pages/admin/Settings'))
 
 const PMDashboard = React.lazy(() => import('./pages/pm/Dashboard'))
 const PMProjectDetail = React.lazy(() => import('./pages/pm/ProjectDetail'))
@@ -49,6 +52,9 @@ export default function App() {
             <Route path="/admin/projects/:id" element={<AdminProjectDetail />} />
             <Route path="/admin/financials" element={<AdminFinancials />} />
             <Route path="/admin/crew" element={<AdminCrew />} />
+            <Route path="/admin/builders" element={<AdminBuilders />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
 
             {/* PM */}
             <Route path="/pm" element={<PMDashboard />} />

@@ -53,12 +53,6 @@ export default function Inspections() {
   const [tab, setTab] = useState<TabFilter>('All')
   const [showModal, setShowModal] = useState(false)
 
-  const allInspections = [...upcomingInspections, ...pastInspections]
-  const filtered = tab === 'All' ? allInspections
-    : tab === 'Pending' ? allInspections.filter(i => i.status === 'Scheduled' || i.status === 'Re-inspect')
-    : tab === 'Passed' ? allInspections.filter(i => i.status === 'Passed')
-    : allInspections.filter(i => i.status === 'Failed')
-
   const tabs: TabFilter[] = ['All', 'Pending', 'Passed', 'Failed']
 
   return (
@@ -97,7 +91,7 @@ export default function Inspections() {
         <div>
           <h2 className="text-lg font-semibold text-white mb-3">Upcoming Inspections</h2>
           <div className="space-y-3">
-            {upcomingInspections.filter(i => tab === 'All' || tab === 'Pending').map(insp => (
+            {upcomingInspections.filter(() => tab === 'All' || tab === 'Pending').map(insp => (
               <div key={insp.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
