@@ -1,5 +1,5 @@
 import Layout from '../../components/Layout'
-import { DollarSign, AlertTriangle } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 
 const MONTHLY_REVENUE = [
   { month: 'Aug', amount: 47500 },
