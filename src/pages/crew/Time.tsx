@@ -56,12 +56,12 @@ export default function CrewTime() {
         <h1 className="text-2xl font-bold text-white">Time Clock</h1>
 
         {/* Clock In/Out */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center space-y-4">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center space-y-4">
           {/* Timer Display */}
           {clockedIn && (
             <div>
-              <p className="text-5xl font-mono text-amber-400 font-bold">{formatElapsed(elapsed)}</p>
-              <p className="text-slate-400 text-sm mt-2">
+              <p className="text-5xl font-mono text-blue-400 font-bold">{formatElapsed(elapsed)}</p>
+              <p className="text-zinc-400 text-sm mt-2">
                 Clocked in at {clockInTime?.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
               </p>
             </div>
@@ -69,11 +69,11 @@ export default function CrewTime() {
 
           {/* Project Select */}
           <div>
-            <label className="text-slate-400 text-sm block mb-2">Working on:</label>
+            <label className="text-zinc-400 text-sm block mb-2">Working on:</label>
             <select
               value={selectedProject}
               onChange={(e) => setSelectedProject(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white text-sm min-h-[48px]"
+              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white text-sm min-h-[48px]"
             >
               {projects.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
@@ -96,18 +96,18 @@ export default function CrewTime() {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-white">This Week</h2>
-            <span className="text-amber-400 font-bold">{weeklyTotal}h total</span>
+            <span className="text-blue-400 font-bold">{weeklyTotal}h total</span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl divide-y divide-slate-800">
             {mockTimeEntries.map((entry, i) => (
               <div key={i} className="p-4">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-white text-sm font-medium">{entry.date}</span>
-                  <span className="text-amber-400 font-semibold">{entry.hours}h</span>
+                  <span className="text-blue-400 font-semibold">{entry.hours}h</span>
                 </div>
-                <p className="text-slate-400 text-sm">{entry.project}</p>
-                {entry.notes && <p className="text-slate-500 text-xs mt-1">{entry.notes}</p>}
+                <p className="text-zinc-400 text-sm">{entry.project}</p>
+                {entry.notes && <p className="text-zinc-500 text-xs mt-1">{entry.notes}</p>}
               </div>
             ))}
           </div>

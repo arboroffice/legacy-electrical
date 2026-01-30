@@ -29,8 +29,8 @@ function ProtectedRoute({ children, allowedRoles }: { children: React.ReactNode,
 
 function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-      <div className="text-amber-400 text-xl font-bold animate-pulse">⚡ Legacy Electrical</div>
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="text-blue-400 text-xl font-bold animate-pulse">⚡ Legacy Electrical</div>
     </div>
   )
 }

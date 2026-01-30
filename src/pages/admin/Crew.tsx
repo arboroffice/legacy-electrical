@@ -25,11 +25,11 @@ export default function AdminCrew() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">Crew Management</h1>
-            <p className="text-slate-400 text-sm mt-1">{MOCK_CREW.length} team members</p>
+            <p className="text-zinc-400 text-sm mt-1">{MOCK_CREW.length} team members</p>
           </div>
           <button
             onClick={() => setShowInvite(true)}
-            className="flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
           >
             <UserPlus className="w-4 h-4" /> Invite Crew Member
           </button>
@@ -38,34 +38,34 @@ export default function AdminCrew() {
         {/* Invite Modal */}
         {showInvite && (
           <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setShowInvite(false)}>
-            <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 w-full max-w-md" onClick={(e) => e.stopPropagation()}>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Invite Crew Member</h3>
-                <button onClick={() => setShowInvite(false)} className="text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+                <button onClick={() => setShowInvite(false)} className="text-zinc-400 hover:text-white"><X className="w-5 h-5" /></button>
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm text-slate-400 mb-1">Full Name</label>
+                  <label className="block text-sm text-zinc-400 mb-1">Full Name</label>
                   <input
                     type="text"
                     value={inviteName}
                     onChange={(e) => setInviteName(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500"
+                    className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-slate-400 mb-1">Email</label>
+                  <label className="block text-sm text-zinc-400 mb-1">Email</label>
                   <input
                     type="email"
                     value={inviteEmail}
                     onChange={(e) => setInviteEmail(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500"
+                    className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
                     placeholder="john@example.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-slate-400 mb-1">Role</label>
+                  <label className="block text-sm text-zinc-400 mb-1">Role</label>
                   <div className="flex gap-2">
                     {(['pm', 'crew'] as const).map((r) => (
                       <button
@@ -74,7 +74,7 @@ export default function AdminCrew() {
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                           inviteRole === r
                             ? r === 'pm' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : 'bg-pink-500/20 text-pink-400 border border-pink-500/30'
-                            : 'bg-slate-800 text-slate-400 border border-slate-700'
+                            : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
                         }`}
                       >
                         {r.toUpperCase()}
@@ -83,7 +83,7 @@ export default function AdminCrew() {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-amber-600 hover:bg-amber-500 text-white py-2.5 rounded-lg text-sm font-medium transition"
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded-lg text-sm font-medium transition"
                   onClick={() => { setShowInvite(false); setInviteEmail(''); setInviteName('') }}
                 >
                   Send Invite
@@ -96,11 +96,11 @@ export default function AdminCrew() {
         {/* Crew Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {MOCK_CREW.map((member) => (
-            <div key={member.id} className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <div key={member.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="text-white font-medium">{member.name}</div>
-                  <div className="text-slate-500 text-xs mt-0.5">{member.email}</div>
+                  <div className="text-zinc-500 text-xs mt-0.5">{member.email}</div>
                 </div>
                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
                   member.role === 'pm' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-pink-500/20 text-pink-400'
@@ -109,24 +109,24 @@ export default function AdminCrew() {
                 </span>
               </div>
 
-              <div className="text-sm text-slate-400 mb-2">Current Assignments</div>
+              <div className="text-sm text-zinc-400 mb-2">Current Assignments</div>
               {member.assignments.length > 0 ? (
                 <div className="space-y-1 mb-3">
                   {member.assignments.map((a) => (
-                    <div key={a} className="text-xs text-slate-300 bg-slate-800 rounded px-2 py-1">{a}</div>
+                    <div key={a} className="text-xs text-zinc-300 bg-zinc-800 rounded px-2 py-1">{a}</div>
                   ))}
                 </div>
               ) : (
                 <p className="text-xs text-slate-600 mb-3">No active assignments</p>
               )}
 
-              <div className="flex gap-4 pt-3 border-t border-slate-800">
+              <div className="flex gap-4 pt-3 border-t border-zinc-800">
                 <div>
-                  <div className="text-xs text-slate-500">This Week</div>
+                  <div className="text-xs text-zinc-500">This Week</div>
                   <div className="text-sm text-white font-medium">{member.hoursWeek}h</div>
                 </div>
                 <div>
-                  <div className="text-xs text-slate-500">This Month</div>
+                  <div className="text-xs text-zinc-500">This Month</div>
                   <div className="text-sm text-white font-medium">{member.hoursMonth}h</div>
                 </div>
               </div>

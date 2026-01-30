@@ -26,8 +26,8 @@ const mockAssignments = [
 ]
 
 const STATUS_STYLES = {
-  not_started: 'bg-slate-700 text-slate-300',
-  in_progress: 'bg-amber-500/10 text-amber-400',
+  not_started: 'bg-zinc-700 text-zinc-300',
+  in_progress: 'bg-blue-500/10 text-blue-400',
   done: 'bg-green-500/10 text-green-400',
 }
 
@@ -63,20 +63,20 @@ export default function CrewToday() {
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-white">{greeting}, Mike 👋</h1>
-          <p className="text-slate-400 mt-1">
+          <p className="text-zinc-400 mt-1">
             {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </p>
         </div>
 
         {/* Quick Actions */}
         <div className="grid grid-cols-3 gap-3">
-          <button className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-slate-700 transition min-h-[80px]">
+          <button className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-zinc-700 transition min-h-[80px]">
             <span className="text-2xl">📸</span>
-            <span className="text-xs text-slate-300 font-medium">Upload Photo</span>
+            <span className="text-xs text-zinc-300 font-medium">Upload Photo</span>
           </button>
-          <button className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-slate-700 transition min-h-[80px]">
+          <button className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-2 hover:border-zinc-700 transition min-h-[80px]">
             <span className="text-2xl">📝</span>
-            <span className="text-xs text-slate-300 font-medium">Material List</span>
+            <span className="text-xs text-zinc-300 font-medium">Material List</span>
           </button>
           <button
             onClick={() => setClockedIn(!clockedIn)}
@@ -97,20 +97,20 @@ export default function CrewToday() {
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-white">Today's Assignments</h2>
           {assignments.map((assignment) => (
-            <div key={assignment.id} className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <div key={assignment.id} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <Link to={`/crew/project/${assignment.id}`} className="text-white font-medium text-base hover:text-amber-400 transition">
+                  <Link to={`/crew/project/${assignment.id}`} className="text-white font-medium text-base hover:text-blue-400 transition">
                     {assignment.project}
                   </Link>
-                  <p className="text-slate-400 text-sm mt-0.5">{assignment.address}</p>
+                  <p className="text-zinc-400 text-sm mt-0.5">{assignment.address}</p>
                 </div>
                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_STYLES[assignment.status]}`}>
                   {STATUS_LABELS[assignment.status]}
                 </span>
               </div>
 
-              <div className="text-xs text-slate-500 mb-3">Phase {assignment.phaseNum}: {assignment.phase}</div>
+              <div className="text-xs text-zinc-500 mb-3">Phase {assignment.phaseNum}: {assignment.phase}</div>
 
               {/* Tasks */}
               <div className="space-y-3 mb-4">
@@ -120,9 +120,9 @@ export default function CrewToday() {
                       type="checkbox"
                       checked={task.done}
                       onChange={() => toggleTask(assignment.id, task.id)}
-                      className="w-5 h-5 rounded border-slate-600 bg-slate-800 text-amber-500 focus:ring-amber-500"
+                      className="w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-blue-500 focus:ring-blue-500"
                     />
-                    <span className={`text-sm ${task.done ? 'text-slate-500 line-through' : 'text-slate-200'}`}>
+                    <span className={`text-sm ${task.done ? 'text-zinc-500 line-through' : 'text-slate-200'}`}>
                       {task.title}
                     </span>
                   </label>
@@ -139,7 +139,7 @@ export default function CrewToday() {
                 >
                   🗺️ Navigate
                 </a>
-                <button className="flex-1 bg-slate-800 text-white py-3 rounded-lg text-sm font-medium hover:bg-slate-700 transition min-h-[48px]">
+                <button className="flex-1 bg-zinc-800 text-white py-3 rounded-lg text-sm font-medium hover:bg-zinc-700 transition min-h-[48px]">
                   📸 Upload Photo
                 </button>
               </div>

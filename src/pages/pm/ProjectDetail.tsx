@@ -5,7 +5,7 @@ import { PROJECT_PHASES, DEFAULT_PHASE_TASKS } from '../../types'
 
 const PHASE_COLORS: Record<number, string> = {
   1: 'bg-blue-500', 2: 'bg-orange-500', 3: 'bg-yellow-500',
-  4: 'bg-amber-500', 5: 'bg-green-500', 6: 'bg-emerald-500',
+  4: 'bg-blue-500', 5: 'bg-green-500', 6: 'bg-emerald-500',
 }
 
 const mockProject = {
@@ -68,21 +68,21 @@ export default function PMProjectDetail() {
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
-            <Link to="/pm" className="text-slate-400 hover:text-white text-sm mb-2 inline-block">← Back to Dashboard</Link>
+            <Link to="/pm" className="text-zinc-400 hover:text-white text-sm mb-2 inline-block">← Back to Dashboard</Link>
             <h1 className="text-2xl font-bold text-white">{project.name}</h1>
-            <p className="text-slate-400">{project.address}</p>
-            <p className="text-slate-500 text-sm mt-1">Builder: {project.builder_name} · Contract: <span className="text-amber-400">${project.contract_amount.toLocaleString()}</span></p>
+            <p className="text-zinc-400">{project.address}</p>
+            <p className="text-zinc-500 text-sm mt-1">Builder: {project.builder_name} · Contract: <span className="text-blue-400">${project.contract_amount.toLocaleString()}</span></p>
           </div>
         </div>
 
         {/* Phase Progress */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
-          <h2 className="text-sm font-semibold text-slate-400 mb-3">Phase Progress</h2>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+          <h2 className="text-sm font-semibold text-zinc-400 mb-3">Phase Progress</h2>
           <div className="flex gap-2">
             {PROJECT_PHASES.map((phase) => (
               <div key={phase.number} className="flex-1 text-center">
-                <div className={`h-2 rounded-full mb-1 ${phase.number <= project.current_phase ? PHASE_COLORS[phase.number] : 'bg-slate-700'}`} />
-                <span className={`text-xs ${phase.number === project.current_phase ? 'text-white font-medium' : 'text-slate-500'}`}>
+                <div className={`h-2 rounded-full mb-1 ${phase.number <= project.current_phase ? PHASE_COLORS[phase.number] : 'bg-zinc-700'}`} />
+                <span className={`text-xs ${phase.number === project.current_phase ? 'text-white font-medium' : 'text-zinc-500'}`}>
                   {phase.name}
                 </span>
               </div>
@@ -92,18 +92,18 @@ export default function PMProjectDetail() {
 
         {/* Action Buttons */}
         <div className="flex flex-wrap gap-3">
-          <button className="px-4 py-2 bg-amber-500 text-slate-900 rounded-lg font-medium text-sm hover:bg-amber-400 transition">
+          <button className="px-4 py-2 bg-blue-500 text-slate-900 rounded-lg font-medium text-sm hover:bg-blue-400 transition">
             💰 Create Invoice (65%)
           </button>
-          <button className="px-4 py-2 bg-slate-800 text-white rounded-lg text-sm hover:bg-slate-700 transition"
+          <button className="px-4 py-2 bg-zinc-800 text-white rounded-lg text-sm hover:bg-zinc-700 transition"
             onClick={() => setShowInspectionForm(!showInspectionForm)}>
             🔍 Schedule Inspection
           </button>
-          <button className="px-4 py-2 bg-slate-800 text-white rounded-lg text-sm hover:bg-slate-700 transition"
+          <button className="px-4 py-2 bg-zinc-800 text-white rounded-lg text-sm hover:bg-zinc-700 transition"
             onClick={() => setShowChangeOrderForm(!showChangeOrderForm)}>
             📝 New Change Order
           </button>
-          <label className="px-4 py-2 bg-slate-800 text-white rounded-lg text-sm hover:bg-slate-700 transition cursor-pointer">
+          <label className="px-4 py-2 bg-zinc-800 text-white rounded-lg text-sm hover:bg-zinc-700 transition cursor-pointer">
             📄 Upload Document
             <input type="file" className="hidden" />
           </label>
@@ -111,40 +111,40 @@ export default function PMProjectDetail() {
 
         {/* Inspection Form */}
         {showInspectionForm && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
             <h3 className="text-white font-medium">Schedule Inspection</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <select className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm">
+              <select className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm">
                 <option>Rough-In Inspection</option>
                 <option>Final Inspection</option>
                 <option>Re-Inspection</option>
               </select>
-              <input type="date" className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm" />
-              <button className="bg-amber-500 text-slate-900 rounded-lg px-4 py-2 font-medium text-sm hover:bg-amber-400">Schedule</button>
+              <input type="date" className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm" />
+              <button className="bg-blue-500 text-slate-900 rounded-lg px-4 py-2 font-medium text-sm hover:bg-blue-400">Schedule</button>
             </div>
           </div>
         )}
 
         {/* Change Order Form */}
         {showChangeOrderForm && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
             <h3 className="text-white font-medium">New Change Order</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <input placeholder="Description" className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm md:col-span-2" />
-              <input type="number" placeholder="Amount" className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm" />
+              <input placeholder="Description" className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm md:col-span-2" />
+              <input type="number" placeholder="Amount" className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm" />
             </div>
-            <button className="bg-amber-500 text-slate-900 rounded-lg px-4 py-2 font-medium text-sm hover:bg-amber-400">Submit</button>
+            <button className="bg-blue-500 text-slate-900 rounded-lg px-4 py-2 font-medium text-sm hover:bg-blue-400">Submit</button>
           </div>
         )}
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
+        <div className="flex gap-1 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`flex-1 px-3 py-2 rounded-md text-sm font-medium transition ${
-                activeTab === tab.key ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white'
+                activeTab === tab.key ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-white'
               }`}
             >
               {tab.icon} {tab.label}
@@ -160,8 +160,8 @@ export default function PMProjectDetail() {
               const isCurrent = phase.number === project.current_phase
               const isPast = phase.number < project.current_phase
               return (
-                <div key={phase.number} className={`bg-slate-900 border rounded-xl p-4 ${isCurrent ? 'border-amber-500/30' : 'border-slate-800'}`}>
-                  <h3 className={`text-sm font-semibold mb-3 ${isCurrent ? 'text-amber-400' : isPast ? 'text-green-400' : 'text-slate-500'}`}>
+                <div key={phase.number} className={`bg-zinc-900 border rounded-xl p-4 ${isCurrent ? 'border-blue-500/30' : 'border-zinc-800'}`}>
+                  <h3 className={`text-sm font-semibold mb-3 ${isCurrent ? 'text-blue-400' : isPast ? 'text-green-400' : 'text-zinc-500'}`}>
                     Phase {phase.number}: {phase.name} {isPast && '✓'}
                   </h3>
                   <div className="space-y-2">
@@ -174,9 +174,9 @@ export default function PMProjectDetail() {
                             type="checkbox"
                             checked={checked}
                             onChange={() => toggleTask(key)}
-                            className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-amber-500 focus:ring-amber-500"
+                            className="w-4 h-4 rounded border-zinc-600 bg-zinc-800 text-blue-500 focus:ring-blue-500"
                           />
-                          <span className={`text-sm ${checked ? 'text-slate-500 line-through' : 'text-slate-300'}`}>
+                          <span className={`text-sm ${checked ? 'text-zinc-500 line-through' : 'text-zinc-300'}`}>
                             {task.title}
                           </span>
                           <span className={`text-xs ml-auto px-2 py-0.5 rounded-full ${task.role === 'pm' ? 'bg-blue-500/10 text-blue-400' : 'bg-green-500/10 text-green-400'}`}>
@@ -193,12 +193,12 @@ export default function PMProjectDetail() {
         )}
 
         {activeTab === 'materials' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl divide-y divide-slate-800">
             {mockMaterials.map((m) => (
               <div key={m.id} className="p-4 flex items-center justify-between">
                 <div>
                   <p className="text-white text-sm">{m.item}</p>
-                  <p className="text-slate-500 text-xs">Qty: {m.quantity} · ${m.cost}</p>
+                  <p className="text-zinc-500 text-xs">Qty: {m.quantity} · ${m.cost}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`text-xs px-2 py-1 rounded-full ${
@@ -216,12 +216,12 @@ export default function PMProjectDetail() {
         )}
 
         {activeTab === 'changes' && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl divide-y divide-slate-800">
             {mockChangeOrders.map((co) => (
               <div key={co.id} className="p-4 flex items-center justify-between">
                 <div>
                   <p className="text-white text-sm">{co.description}</p>
-                  <p className="text-amber-400 text-xs font-medium">${co.amount}</p>
+                  <p className="text-blue-400 text-xs font-medium">${co.amount}</p>
                 </div>
                 <span className="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-400">{co.status}</span>
               </div>
@@ -232,11 +232,11 @@ export default function PMProjectDetail() {
         {activeTab === 'photos' && (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {mockPhotos.map((photo) => (
-              <div key={photo.id} className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-                <div className="aspect-square bg-slate-800 flex items-center justify-center text-4xl">📷</div>
+              <div key={photo.id} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+                <div className="aspect-square bg-zinc-800 flex items-center justify-center text-4xl">📷</div>
                 <div className="p-3">
                   <p className="text-white text-sm">{photo.label}</p>
-                  <p className="text-slate-500 text-xs">Phase {photo.phase} · {photo.date}</p>
+                  <p className="text-zinc-500 text-xs">Phase {photo.phase} · {photo.date}</p>
                 </div>
               </div>
             ))}
@@ -246,17 +246,17 @@ export default function PMProjectDetail() {
         {activeTab === 'notes' && (
           <div className="space-y-3">
             <div className="flex gap-2">
-              <input placeholder="Add a note..." className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm" />
-              <button className="bg-amber-500 text-slate-900 rounded-lg px-4 py-2 font-medium text-sm">Add</button>
+              <input placeholder="Add a note..." className="flex-1 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm" />
+              <button className="bg-blue-500 text-slate-900 rounded-lg px-4 py-2 font-medium text-sm">Add</button>
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl divide-y divide-slate-800">
               {mockNotes.map((note, i) => (
                 <div key={i} className="p-4">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs text-slate-500">{note.date}</span>
+                    <span className="text-xs text-zinc-500">{note.date}</span>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${note.by === 'PM' ? 'bg-blue-500/10 text-blue-400' : 'bg-green-500/10 text-green-400'}`}>{note.by}</span>
                   </div>
-                  <p className="text-slate-300 text-sm">{note.text}</p>
+                  <p className="text-zinc-300 text-sm">{note.text}</p>
                 </div>
               ))}
             </div>

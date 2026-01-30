@@ -74,7 +74,7 @@ export default function PMSchedule() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <Link to="/pm" className="text-slate-400 hover:text-white text-sm mb-2 inline-block">← Back to Dashboard</Link>
+            <Link to="/pm" className="text-zinc-400 hover:text-white text-sm mb-2 inline-block">← Back to Dashboard</Link>
             <h1 className="text-2xl font-bold text-white">Schedule</h1>
           </div>
           {/* Legend */}
@@ -82,25 +82,25 @@ export default function PMSchedule() {
             {Object.entries(EVENT_COLORS).map(([type, colors]) => (
               <div key={type} className="flex items-center gap-1.5">
                 <div className={`w-2 h-2 rounded-full ${colors.dot}`} />
-                <span className="text-slate-400 capitalize">{type}</span>
+                <span className="text-zinc-400 capitalize">{type}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Calendar */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           {/* Month Navigation */}
           <div className="flex items-center justify-between mb-4">
-            <button onClick={prevMonth} className="p-2 text-slate-400 hover:text-white transition">◀</button>
+            <button onClick={prevMonth} className="p-2 text-zinc-400 hover:text-white transition">◀</button>
             <h2 className="text-lg font-semibold text-white">{MONTHS[currentMonth]} {currentYear}</h2>
-            <button onClick={nextMonth} className="p-2 text-slate-400 hover:text-white transition">▶</button>
+            <button onClick={nextMonth} className="p-2 text-zinc-400 hover:text-white transition">▶</button>
           </div>
 
           {/* Day Headers */}
           <div className="grid grid-cols-7 gap-1 mb-1">
             {DAYS.map(d => (
-              <div key={d} className="text-center text-xs text-slate-500 font-medium py-2">{d}</div>
+              <div key={d} className="text-center text-xs text-zinc-500 font-medium py-2">{d}</div>
             ))}
           </div>
 
@@ -124,12 +124,12 @@ export default function PMSchedule() {
                   key={day}
                   onClick={() => setSelectedDate(ds === selectedDate ? null : ds)}
                   className={`aspect-square rounded-lg flex flex-col items-center justify-center gap-1 transition text-sm ${
-                    isSelected ? 'bg-amber-500/20 border border-amber-500' :
-                    isToday ? 'bg-slate-800 border border-slate-600' :
-                    'hover:bg-slate-800 border border-transparent'
+                    isSelected ? 'bg-blue-500/20 border border-blue-500' :
+                    isToday ? 'bg-zinc-800 border border-zinc-600' :
+                    'hover:bg-zinc-800 border border-transparent'
                   }`}
                 >
-                  <span className={isToday ? 'text-amber-400 font-bold' : 'text-slate-300'}>{day}</span>
+                  <span className={isToday ? 'text-blue-400 font-bold' : 'text-zinc-300'}>{day}</span>
                   {dayEvents.length > 0 && (
                     <div className="flex gap-0.5">
                       {dayEvents.map((e, j) => (
@@ -150,13 +150,13 @@ export default function PMSchedule() {
               Events for {new Date(selectedDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </h3>
             {selectedEvents.length === 0 ? (
-              <p className="text-slate-500 text-sm">No events scheduled</p>
+              <p className="text-zinc-500 text-sm">No events scheduled</p>
             ) : (
               <div className="space-y-2">
                 {selectedEvents.map((event, i) => {
                   const colors = EVENT_COLORS[event.type]
                   return (
-                    <div key={i} className={`${colors.bg} border border-slate-800 rounded-xl p-4 flex items-center gap-3`}>
+                    <div key={i} className={`${colors.bg} border border-zinc-800 rounded-xl p-4 flex items-center gap-3`}>
                       <div className={`w-3 h-3 rounded-full ${colors.dot}`} />
                       <div>
                         <p className="text-white text-sm font-medium">{event.title}</p>

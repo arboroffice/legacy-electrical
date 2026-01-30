@@ -18,7 +18,7 @@ const phaseColors: Record<number, string> = {
   1: 'bg-blue-500/20 text-blue-400',
   2: 'bg-orange-500/20 text-orange-400',
   3: 'bg-yellow-500/20 text-yellow-400',
-  4: 'bg-amber-500/20 text-amber-400',
+  4: 'bg-blue-500/20 text-blue-400',
   5: 'bg-green-500/20 text-green-400',
   6: 'bg-emerald-500/20 text-emerald-400',
 }
@@ -55,9 +55,9 @@ export default function AdminProjects() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white">Projects</h1>
-            <p className="text-slate-400 text-sm mt-1">{MOCK_PROJECTS.length} total projects</p>
+            <p className="text-zinc-400 text-sm mt-1">{MOCK_PROJECTS.length} total projects</p>
           </div>
-          <button className="flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+          <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
             <Plus className="w-4 h-4" /> New Project
           </button>
         </div>
@@ -65,23 +65,23 @@ export default function AdminProjects() {
         {/* Search & Sort */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
             <input
               type="text"
               placeholder="Search projects, builders, addresses..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50"
+              className="w-full bg-zinc-900 border border-zinc-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50"
             />
           </div>
           <div className="flex items-center gap-2">
-            <ArrowUpDown className="w-4 h-4 text-slate-500" />
+            <ArrowUpDown className="w-4 h-4 text-zinc-500" />
             {(['phase', 'builder', 'amount', 'date'] as SortKey[]).map((key) => (
               <button
                 key={key}
                 onClick={() => setSortBy(key)}
                 className={`px-3 py-1.5 rounded-md text-xs font-medium capitalize transition ${
-                  sortBy === key ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
+                  sortBy === key ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-400 hover:text-white'
                 }`}
               >
                 {key}
@@ -91,17 +91,17 @@ export default function AdminProjects() {
         </div>
 
         {/* Table */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-800">
-                  <th className="text-left px-4 py-3 text-slate-400 font-medium">Project</th>
-                  <th className="text-left px-4 py-3 text-slate-400 font-medium hidden md:table-cell">Address</th>
-                  <th className="text-left px-4 py-3 text-slate-400 font-medium">Builder</th>
-                  <th className="text-right px-4 py-3 text-slate-400 font-medium">Contract</th>
-                  <th className="text-center px-4 py-3 text-slate-400 font-medium">Phase</th>
-                  <th className="text-center px-4 py-3 text-slate-400 font-medium">Status</th>
+                <tr className="border-b border-zinc-800">
+                  <th className="text-left px-4 py-3 text-zinc-400 font-medium">Project</th>
+                  <th className="text-left px-4 py-3 text-zinc-400 font-medium hidden md:table-cell">Address</th>
+                  <th className="text-left px-4 py-3 text-zinc-400 font-medium">Builder</th>
+                  <th className="text-right px-4 py-3 text-zinc-400 font-medium">Contract</th>
+                  <th className="text-center px-4 py-3 text-zinc-400 font-medium">Phase</th>
+                  <th className="text-center px-4 py-3 text-zinc-400 font-medium">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
@@ -111,21 +111,21 @@ export default function AdminProjects() {
                     <tr
                       key={p.id}
                       onClick={() => navigate(`/admin/projects/${p.id}`)}
-                      className="hover:bg-slate-800/50 cursor-pointer transition"
+                      className="hover:bg-zinc-800/50 cursor-pointer transition"
                     >
                       <td className="px-4 py-3 text-white font-medium">{p.name}</td>
-                      <td className="px-4 py-3 text-slate-400 hidden md:table-cell">{p.address}</td>
-                      <td className="px-4 py-3 text-slate-300">{p.builder_name}</td>
-                      <td className="px-4 py-3 text-right text-slate-300">${p.contract_amount.toLocaleString()}</td>
+                      <td className="px-4 py-3 text-zinc-400 hidden md:table-cell">{p.address}</td>
+                      <td className="px-4 py-3 text-zinc-300">{p.builder_name}</td>
+                      <td className="px-4 py-3 text-right text-zinc-300">${p.contract_amount.toLocaleString()}</td>
                       <td className="px-4 py-3 text-center">
-                        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${phaseColors[p.current_phase] || 'bg-slate-700 text-slate-300'}`}>
+                        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium ${phaseColors[p.current_phase] || 'bg-zinc-700 text-zinc-300'}`}>
                           {phase?.name || 'Unknown'}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-center">
                         <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
                           p.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' :
-                          p.status === 'complete' ? 'bg-slate-700 text-slate-300' :
+                          p.status === 'complete' ? 'bg-zinc-700 text-zinc-300' :
                           'bg-orange-500/20 text-orange-400'
                         }`}>
                           {p.status}

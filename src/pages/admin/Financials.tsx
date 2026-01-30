@@ -30,9 +30,9 @@ const BUILDER_REVENUE = [
 
 const statusStyles: Record<string, string> = {
   paid: 'bg-emerald-500/20 text-emerald-400',
-  sent: 'bg-amber-500/20 text-amber-400',
+  sent: 'bg-blue-500/20 text-blue-400',
   viewed: 'bg-blue-500/20 text-blue-400',
-  draft: 'bg-slate-700 text-slate-400',
+  draft: 'bg-zinc-700 text-zinc-400',
   overdue: 'bg-red-500/20 text-red-400',
 }
 
@@ -46,39 +46,39 @@ export default function AdminFinancials() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-white">Financials</h1>
-          <p className="text-slate-400 text-sm mt-1">Revenue tracking and invoices</p>
+          <p className="text-zinc-400 text-sm mt-1">Revenue tracking and invoices</p>
         </div>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
-            <div className="text-slate-400 text-sm mb-1">Total Collected</div>
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+            <div className="text-zinc-400 text-sm mb-1">Total Collected</div>
             <div className="text-2xl font-bold text-emerald-400">${totalCollected.toLocaleString()}</div>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
-            <div className="text-slate-400 text-sm mb-1">Outstanding</div>
-            <div className="text-2xl font-bold text-amber-400">${totalOutstanding.toLocaleString()}</div>
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+            <div className="text-zinc-400 text-sm mb-1">Outstanding</div>
+            <div className="text-2xl font-bold text-blue-400">${totalOutstanding.toLocaleString()}</div>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
-            <div className="text-slate-400 text-sm mb-1">Overdue</div>
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+            <div className="text-zinc-400 text-sm mb-1">Overdue</div>
             <div className="text-2xl font-bold text-red-400">${totalOverdue.toLocaleString()}</div>
           </div>
         </div>
 
         {/* Revenue Chart */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           <h2 className="text-sm font-semibold text-white mb-4">Monthly Revenue</h2>
           <div className="flex items-end gap-3 h-48">
             {MONTHLY_REVENUE.map((m) => (
               <div key={m.month} className="flex-1 flex flex-col items-center gap-2">
-                <span className="text-xs text-slate-400">${(m.amount / 1000).toFixed(0)}k</span>
-                <div className="w-full bg-slate-800 rounded-t-md overflow-hidden" style={{ height: '100%' }}>
+                <span className="text-xs text-zinc-400">${(m.amount / 1000).toFixed(0)}k</span>
+                <div className="w-full bg-zinc-800 rounded-t-md overflow-hidden" style={{ height: '100%' }}>
                   <div
-                    className="w-full bg-amber-500 rounded-t-md transition-all"
+                    className="w-full bg-blue-500 rounded-t-md transition-all"
                     style={{ height: `${(m.amount / maxRevenue) * 100}%`, marginTop: 'auto' }}
                   />
                 </div>
-                <span className="text-xs text-slate-500">{m.month}</span>
+                <span className="text-xs text-zinc-500">{m.month}</span>
               </div>
             ))}
           </div>
@@ -88,15 +88,15 @@ export default function AdminFinancials() {
           {/* Invoices */}
           <div className="lg:col-span-2">
             <h2 className="text-sm font-semibold text-white mb-3">Invoices</h2>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-800">
-                    <th className="text-left px-4 py-3 text-slate-400 font-medium">Project</th>
-                    <th className="text-left px-4 py-3 text-slate-400 font-medium hidden sm:table-cell">Builder</th>
-                    <th className="text-center px-4 py-3 text-slate-400 font-medium">Type</th>
-                    <th className="text-right px-4 py-3 text-slate-400 font-medium">Amount</th>
-                    <th className="text-center px-4 py-3 text-slate-400 font-medium">Status</th>
+                  <tr className="border-b border-zinc-800">
+                    <th className="text-left px-4 py-3 text-zinc-400 font-medium">Project</th>
+                    <th className="text-left px-4 py-3 text-zinc-400 font-medium hidden sm:table-cell">Builder</th>
+                    <th className="text-center px-4 py-3 text-zinc-400 font-medium">Type</th>
+                    <th className="text-right px-4 py-3 text-zinc-400 font-medium">Amount</th>
+                    <th className="text-center px-4 py-3 text-zinc-400 font-medium">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800">
@@ -106,8 +106,8 @@ export default function AdminFinancials() {
                         {inv.status === 'overdue' && <AlertTriangle className="w-3.5 h-3.5 text-red-400" />}
                         {inv.project}
                       </td>
-                      <td className="px-4 py-3 text-slate-400 hidden sm:table-cell">{inv.builder}</td>
-                      <td className="px-4 py-3 text-center text-slate-300">{inv.type}</td>
+                      <td className="px-4 py-3 text-zinc-400 hidden sm:table-cell">{inv.builder}</td>
+                      <td className="px-4 py-3 text-center text-zinc-300">{inv.type}</td>
                       <td className="px-4 py-3 text-right text-white">${inv.amount.toLocaleString()}</td>
                       <td className="px-4 py-3 text-center">
                         <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${statusStyles[inv.status]}`}>
@@ -126,38 +126,38 @@ export default function AdminFinancials() {
             <h2 className="text-sm font-semibold text-white mb-3">Revenue by Builder</h2>
             <div className="space-y-3">
               {BUILDER_REVENUE.map((b) => (
-                <div key={b.builder} className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+                <div key={b.builder} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-white font-medium">{b.builder}</span>
-                    <span className="text-sm text-amber-400">${b.total.toLocaleString()}</span>
+                    <span className="text-sm text-blue-400">${b.total.toLocaleString()}</span>
                   </div>
-                  <div className="w-full bg-slate-800 rounded-full h-1.5">
-                    <div className="bg-amber-500 rounded-full h-1.5" style={{ width: `${(b.total / 80000) * 100}%` }} />
+                  <div className="w-full bg-zinc-800 rounded-full h-1.5">
+                    <div className="bg-blue-500 rounded-full h-1.5" style={{ width: `${(b.total / 80000) * 100}%` }} />
                   </div>
-                  <span className="text-xs text-slate-500 mt-1 block">{b.projects} project(s)</span>
+                  <span className="text-xs text-zinc-500 mt-1 block">{b.projects} project(s)</span>
                 </div>
               ))}
             </div>
 
             {/* 65/35 Tracking */}
             <h2 className="text-sm font-semibold text-white mb-3 mt-6">Collection Split</h2>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 space-y-3">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-slate-400">65% Draws</span>
+                  <span className="text-zinc-400">65% Draws</span>
                   <span className="text-emerald-400">$98,995</span>
                 </div>
-                <div className="w-full bg-slate-800 rounded-full h-2">
+                <div className="w-full bg-zinc-800 rounded-full h-2">
                   <div className="bg-emerald-500 rounded-full h-2" style={{ width: '72%' }} />
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-slate-400">35% Draws</span>
-                  <span className="text-amber-400">$18,200</span>
+                  <span className="text-zinc-400">35% Draws</span>
+                  <span className="text-blue-400">$18,200</span>
                 </div>
-                <div className="w-full bg-slate-800 rounded-full h-2">
-                  <div className="bg-amber-500 rounded-full h-2" style={{ width: '34%' }} />
+                <div className="w-full bg-zinc-800 rounded-full h-2">
+                  <div className="bg-blue-500 rounded-full h-2" style={{ width: '34%' }} />
                 </div>
               </div>
             </div>

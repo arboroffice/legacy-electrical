@@ -42,29 +42,29 @@ export default function CrewProject() {
     <Layout>
       <div className="space-y-6 pb-24 lg:pb-6">
         <div>
-          <Link to="/crew" className="text-slate-400 hover:text-white text-sm mb-2 inline-block">← Back</Link>
+          <Link to="/crew" className="text-zinc-400 hover:text-white text-sm mb-2 inline-block">← Back</Link>
           <h1 className="text-xl font-bold text-white">{project.name}</h1>
-          <p className="text-slate-400 text-sm">{project.address}</p>
-          <p className="text-slate-500 text-sm mt-1">Builder: {project.builder_name}</p>
+          <p className="text-zinc-400 text-sm">{project.address}</p>
+          <p className="text-zinc-500 text-sm mt-1">Builder: {project.builder_name}</p>
         </div>
 
         {/* Phase Info */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-slate-400 text-sm">Current Phase</span>
-            <span className="text-amber-400 font-medium text-sm">Phase {project.current_phase}: {phase.name}</span>
+            <span className="text-zinc-400 text-sm">Current Phase</span>
+            <span className="text-blue-400 font-medium text-sm">Phase {project.current_phase}: {phase.name}</span>
           </div>
           <div className="flex gap-1">
             {PROJECT_PHASES.map((p) => (
               <div key={p.number} className={`h-2 flex-1 rounded-full ${
-                p.number <= project.current_phase ? 'bg-amber-500' : 'bg-slate-700'
+                p.number <= project.current_phase ? 'bg-blue-500' : 'bg-zinc-700'
               }`} />
             ))}
           </div>
         </div>
 
         {/* My Tasks */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           <h2 className="text-white font-semibold mb-3">My Tasks</h2>
           <div className="space-y-3">
             {tasks.map((task) => (
@@ -73,9 +73,9 @@ export default function CrewProject() {
                   type="checkbox"
                   checked={task.done}
                   onChange={() => toggleTask(task.id)}
-                  className="w-5 h-5 rounded border-slate-600 bg-slate-800 text-amber-500 focus:ring-amber-500"
+                  className="w-5 h-5 rounded border-zinc-600 bg-zinc-800 text-blue-500 focus:ring-blue-500"
                 />
-                <span className={`text-sm ${task.done ? 'text-slate-500 line-through' : 'text-slate-200'}`}>
+                <span className={`text-sm ${task.done ? 'text-zinc-500 line-through' : 'text-slate-200'}`}>
                   {task.title}
                 </span>
               </label>
@@ -84,14 +84,14 @@ export default function CrewProject() {
         </div>
 
         {/* Materials */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           <h2 className="text-white font-semibold mb-3">Materials</h2>
           <div className="space-y-2">
             {mockMaterials.map((m, i) => (
               <div key={i} className="flex items-center justify-between py-2">
                 <div>
                   <p className="text-slate-200 text-sm">{m.item}</p>
-                  <p className="text-slate-500 text-xs">Qty: {m.qty}</p>
+                  <p className="text-zinc-500 text-xs">Qty: {m.qty}</p>
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   m.status === 'delivered' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
@@ -102,18 +102,18 @@ export default function CrewProject() {
         </div>
 
         {/* Photos */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-white font-semibold">My Photos</h2>
-            <button className="text-sm bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg hover:bg-slate-700 min-h-[48px]">📸 Upload</button>
+            <button className="text-sm bg-zinc-800 text-zinc-300 px-3 py-1.5 rounded-lg hover:bg-zinc-700 min-h-[48px]">📸 Upload</button>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {mockPhotos.map((photo) => (
-              <div key={photo.id} className="bg-slate-800 rounded-lg overflow-hidden">
-                <div className="aspect-square flex items-center justify-center text-3xl bg-slate-700">📷</div>
+              <div key={photo.id} className="bg-zinc-800 rounded-lg overflow-hidden">
+                <div className="aspect-square flex items-center justify-center text-3xl bg-zinc-700">📷</div>
                 <div className="p-2">
-                  <p className="text-slate-300 text-xs">{photo.label}</p>
-                  <p className="text-slate-500 text-xs">{photo.date}</p>
+                  <p className="text-zinc-300 text-xs">{photo.label}</p>
+                  <p className="text-zinc-500 text-xs">{photo.date}</p>
                 </div>
               </div>
             ))}
@@ -121,16 +121,16 @@ export default function CrewProject() {
         </div>
 
         {/* Notes */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
           <h2 className="text-white font-semibold mb-3">Notes</h2>
           <div className="flex gap-2">
             <input
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="Add a note..."
-              className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-3 text-white text-sm min-h-[48px]"
+              className="flex-1 bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-3 text-white text-sm min-h-[48px]"
             />
-            <button className="bg-amber-500 text-slate-900 rounded-lg px-4 font-medium text-sm min-h-[48px]">Add</button>
+            <button className="bg-blue-500 text-slate-900 rounded-lg px-4 font-medium text-sm min-h-[48px]">Add</button>
           </div>
         </div>
       </div>
