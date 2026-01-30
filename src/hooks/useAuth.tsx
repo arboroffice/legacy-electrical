@@ -19,6 +19,9 @@ const AuthContext = createContext<AuthContextType>({
   signOut: async () => {},
 })
 
+// Demo mode when Supabase isn't configured
+const DEMO_MODE = !import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [role, setRole] = useState<UserRole | ''>('')
@@ -38,6 +41,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
+    // Demo mode: auto-login as admin
+    if (DEMO_MODE) {
+      setUser({ id: 'demo', email: 'admin@legacyelectrical.com' } as any)
+      setRole('admin')
+      setLoading(false)
+      return
+    }
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
